@@ -1,23 +1,20 @@
+import 'package:imcapp/model/imc_model.dart';
+
 class Pessoa {
   String _nome = "";
-  double _altura = 0;
-  double _peso = 0;
+  Imc _imc;
 
-  Pessoa(this._nome, this._altura, this._peso);
+  Pessoa(this._nome, this._imc);
 
   String get nome => _nome;
-  double get altura => _altura;
-  double get peso => _peso;
 
   set nome(String nome) {
     _nome = nome;
   }
 
-  set altura(double altura) {
-    _altura = altura;
-  }
+  Imc get imc => _imc;
 
-  set peso(double peso) {
-    _peso = peso;
+  set imc(Imc imc) {
+    _imc = imc;
   }
 }

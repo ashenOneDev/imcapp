@@ -1,4 +1,28 @@
-class ImcService {
+class Imc {
+  double _altura = 0;
+  double _peso = 0;
+  double _imc = 0;
+
+  Imc.criar(this._altura, this._peso) {
+    _imc = calcularIMC(_altura, _peso);
+  }
+
+  Imc();
+
+  double get altura => _altura;
+
+  set altura(double altura) {
+    _altura = altura;
+  }
+
+  double get peso => _peso;
+
+  set peso(double peso) {
+    _peso = peso;
+  }
+
+  double get value => _imc;
+
   double calcularIMC(double altura, double peso) {
     return peso / (altura * altura);
   }

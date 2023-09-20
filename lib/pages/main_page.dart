@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:imcapp/model/pessoa_model.dart';
-import 'package:imcapp/services/imc_service.dart';
 
+import '../model/imc_model.dart';
 import '../shared/widgets/text_label.dart';
 
 class MainPage extends StatefulWidget {
@@ -12,11 +12,10 @@ class MainPage extends StatefulWidget {
 }
 
 class _MainPageState extends State<MainPage> {
-  Pessoa pessoa = Pessoa("", 0, 0);
+  Pessoa pessoa = Pessoa("", Imc());
   TextEditingController nomeController = TextEditingController();
   TextEditingController pesoController = TextEditingController();
   TextEditingController alturaController = TextEditingController();
-  ImcService imcService = ImcService();
 
   @override
   Widget build(BuildContext context) {
@@ -55,7 +54,7 @@ class _MainPageState extends State<MainPage> {
                   }
 
                   try {
-                    pessoa.peso = double.parse(pesoController.text);
+                    pessoa.imc.peso = double.parse(pesoController.text);
                   } catch (e) {
                     ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
                         content: Text("Favor informar um peso válido!")));
@@ -63,15 +62,15 @@ class _MainPageState extends State<MainPage> {
                   }
 
                   try {
-                    pessoa.altura = double.parse(alturaController.text);
+                    pessoa.imc.altura = double.parse(alturaController.text);
                   } catch (e) {
                     ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
                         content: Text("Favor informar uma altura válida!")));
                     return;
                   }
 
-                  var imc = imcService.calcularIMC(pessoa.altura, pessoa.peso);
-                  var classificacao = imcService.classificacaoIMC(imc);
+                  var imc = Imc.criar(pessoa.imc.altura, pessoa.imc.peso);
+                  var classificacao = Imc().classificacaoIMC(imc.value);
 
                   showDialog(
                       context: context,
@@ -81,7 +80,8 @@ class _MainPageState extends State<MainPage> {
                           content: Wrap(
                             children: [
                               TextLabel(
-                                  texto: "IMC: ${imc.toStringAsFixed(2)}"),
+                                  texto:
+                                      "IMC: ${imc.value.toStringAsFixed(2)}"),
                               TextLabel(texto: "Classificação: $classificacao"),
                             ],
                           ),
