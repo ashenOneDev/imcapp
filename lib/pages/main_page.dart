@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:imcapp/model/pessoa_model.dart';
+import 'package:imcapp/services/imc_service.dart';
 
 import '../shared/widgets/text_label.dart';
 
@@ -10,35 +12,11 @@ class MainPage extends StatefulWidget {
 }
 
 class _MainPageState extends State<MainPage> {
+  Pessoa pessoa = Pessoa("", 0, 0);
   TextEditingController nomeController = TextEditingController();
   TextEditingController pesoController = TextEditingController();
   TextEditingController alturaController = TextEditingController();
-
-  double calcularIMC(double altura, double peso) {
-    return peso / (altura * altura);
-  }
-
-  String classificacaoIMC(double imc) {
-    String classificacao = "";
-    if (imc < 16) {
-      classificacao = "Magreza grave";
-    } else if (imc < 17) {
-      classificacao = "Magreza moderada";
-    } else if (imc < 18.5) {
-      classificacao = "Magreza leve";
-    } else if (imc < 25) {
-      classificacao = "Saudável";
-    } else if (imc < 30) {
-      classificacao = "Sobrepeso";
-    } else if (imc < 35) {
-      classificacao = "Obesidade Grau I";
-    } else if (imc < 40) {
-      classificacao = "Obesidade Grau II (severa)";
-    } else {
-      classificacao = "Obesidade Grau III (mórbida)";
-    }
-    return classificacao;
-  }
+  ImcService imcService = ImcService();
 
   @override
   Widget build(BuildContext context) {
@@ -68,16 +46,16 @@ class _MainPageState extends State<MainPage> {
             ),
             TextButton(
                 onPressed: () {
-                  double altura = 0;
-                  double peso = 0;
                   if (nomeController.text.trim().length < 3) {
                     ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
                         content: Text("O nome deve ser preenchido!")));
                     return;
+                  } else {
+                    pessoa.nome = nomeController.text.trim();
                   }
 
                   try {
-                    peso = double.parse(pesoController.text);
+                    pessoa.peso = double.parse(pesoController.text);
                   } catch (e) {
                     ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
                         content: Text("Favor informar um peso válido!")));
@@ -85,15 +63,15 @@ class _MainPageState extends State<MainPage> {
                   }
 
                   try {
-                    altura = double.parse(alturaController.text);
+                    pessoa.altura = double.parse(alturaController.text);
                   } catch (e) {
                     ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
                         content: Text("Favor informar uma altura válida!")));
                     return;
                   }
 
-                  var imc = calcularIMC(altura, peso);
-                  var classificacao = classificacaoIMC(imc);
+                  var imc = imcService.calcularIMC(pessoa.altura, pessoa.peso);
+                  var classificacao = imcService.classificacaoIMC(imc);
 
                   showDialog(
                       context: context,
