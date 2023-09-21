@@ -1,27 +1,26 @@
-class Imc {
-  double _altura = 0;
-  double _peso = 0;
-  double _imc = 0;
+import 'package:hive/hive.dart';
 
-  Imc.criar(this._altura, this._peso) {
-    _imc = calcularIMC(_altura, _peso);
+part 'imc_model.g.dart';
+
+@HiveType(typeId: 1)
+class ImcModel extends HiveObject {
+  @HiveField(0)
+  double altura = 0;
+  @HiveField(1)
+  double peso = 0;
+  @HiveField(2)
+  double imc = 0;
+  @HiveField(3)
+  String data = "";
+  @HiveField(4)
+  String classificacao = "";
+
+  ImcModel.criar(this.data, this.altura, this.peso) {
+    imc = calcularIMC(altura, peso);
+    classificacao = classificacaoIMC(imc);
   }
 
-  Imc();
-
-  double get altura => _altura;
-
-  set altura(double altura) {
-    _altura = altura;
-  }
-
-  double get peso => _peso;
-
-  set peso(double peso) {
-    _peso = peso;
-  }
-
-  double get value => _imc;
+  ImcModel();
 
   double calcularIMC(double altura, double peso) {
     return peso / (altura * altura);

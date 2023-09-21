@@ -1,20 +1,17 @@
-import 'package:imcapp/model/imc_model.dart';
+import 'package:hive/hive.dart';
 
-class Pessoa {
-  String _nome = "";
-  Imc _imc;
+part 'pessoa_model.g.dart';
 
-  Pessoa(this._nome, this._imc);
+@HiveType(typeId: 0)
+class PessoaModel extends HiveObject {
+  @HiveField(0)
+  String nome = "";
+  @HiveField(1)
+  String dataNascimento = "";
+  @HiveField(2)
+  double altura = 0;
 
-  String get nome => _nome;
+  PessoaModel.criar(this.nome, this.dataNascimento, this.altura);
 
-  set nome(String nome) {
-    _nome = nome;
-  }
-
-  Imc get imc => _imc;
-
-  set imc(Imc imc) {
-    _imc = imc;
-  }
+  PessoaModel();
 }
