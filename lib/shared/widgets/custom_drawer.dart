@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:imcapp/pages/acompanhamento_imc_page.dart';
 
 import '../../pages/dados_cadastro_page.dart';
-import '../../pages/imc_caluladora_page.dart';
 
 class CustomDrawer extends StatelessWidget {
   const CustomDrawer({super.key});
@@ -49,8 +48,8 @@ class CustomDrawer extends StatelessWidget {
                     height: 50,
                   ),
                 ),
-                accountName: const Text("Imc app"),
-                accountEmail: const Text("imc@email.com")),
+                accountName: const Text("IMC APP"),
+                accountEmail: const Text("imc.app@email.com")),
           ),
           InkWell(
             child: Container(
@@ -94,28 +93,6 @@ class CustomDrawer extends StatelessWidget {
                   context,
                   MaterialPageRoute(
                       builder: (context) => const AcompanhamentoImcPage()));
-            },
-          ),
-          InkWell(
-            child: Container(
-              padding: const EdgeInsets.symmetric(horizontal: 0, vertical: 5),
-              width: double.infinity,
-              child: const Row(
-                children: [
-                  Icon(Icons.calculate),
-                  SizedBox(
-                    width: 5,
-                  ),
-                  Text("Calculadora IMC")
-                ],
-              ),
-            ),
-            onTap: () {
-              Navigator.pop(context);
-              Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => const ImcCalculadoraPage()));
             },
           ),
           InkWell(

@@ -7,10 +7,10 @@ class ImcRepositoy {
   ImcRepositoy._criar();
 
   static Future<ImcRepositoy> carregar() async {
-    if (Hive.isBoxOpen('dadosCadastrados')) {
-      _box = Hive.box("dadosCadastrados");
+    if (Hive.isBoxOpen('dadosImc')) {
+      _box = Hive.box("dadosImc");
     } else {
-      _box = await Hive.openBox("dadosCadastrados");
+      _box = await Hive.openBox("dadosImc");
     }
     return ImcRepositoy._criar();
   }

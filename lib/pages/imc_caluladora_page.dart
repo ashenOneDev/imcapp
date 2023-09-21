@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:imcapp/shared/widgets/custom_drawer.dart';
 
 import '../model/imc_model.dart';
 import '../shared/widgets/text_label.dart';
@@ -20,10 +19,6 @@ class _ImcCalculadoraPageState extends State<ImcCalculadoraPage> {
   Widget build(BuildContext context) {
     return SafeArea(
         child: Scaffold(
-      appBar: AppBar(
-        title: const Text("Calculadora IMC"),
-      ),
-      drawer: CustomDrawer(),
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
         child: ListView(

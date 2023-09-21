@@ -64,7 +64,8 @@ class _DadosCadastroPageState extends State<DadosCadastroPage> {
                     firstDate: DateTime(1900, 1, 1),
                     lastDate: DateTime.now());
                 if (date != null) {
-                  dataNascimentoController.text = date.toString();
+                  dataNascimentoController.text =
+                      date.toString().substring(0, 10);
                   dataNascimento = date;
                 }
               },
